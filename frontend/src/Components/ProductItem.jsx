@@ -11,11 +11,11 @@ function ProductItem({id,image,name,price}) {
     return (
         <div className='mx-auto'>
             <Link className="text-gray-800 cursor-pointer" to={`/product/${id}`}>
-            <div className='overflow-hidden'>
-                <img className="hover:scale-110 transition ease-in-out" src={image[0]} alt="" />
-            </div>
-            <p className='pt-3 pb-1 text-sm'>{name}</p>
-            <p className='text-sm font-medium'>{currency}{price}</p>
+                <div>
+                    <img className="hover:scale-107 transition ease-in-out" src={image[0]} alt="" />
+                </div>
+                <p className='mx-1 pt-3 pb-1 text-sm'>{name}</p>
+                <p className='mx-1 text-sm font-medium'>{currency}{price}</p>
             </Link>
         </div>
   )

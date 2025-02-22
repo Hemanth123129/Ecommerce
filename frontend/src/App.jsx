@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import About from './Pages/About'
@@ -13,7 +12,7 @@ import Login from './Pages/Login'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import SearchBar from './Components/SearchBar'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 
 
 

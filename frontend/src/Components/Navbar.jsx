@@ -1,10 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState} from 'react'
 import {assets} from '../assets/assets'
 import { Link, NavLink } from 'react-router-dom'
 import { Shopcontext } from '../context/ShopContext'
-
+import { useLocation } from 'react-router-dom'
 
 function Navbar() {
+
+  const path = useLocation()
+  const location = path.pathname
 
   const [visible,setVisible] = useState(false)
   const {setshowsearch , getCartCount} = useContext(Shopcontext)
@@ -31,13 +34,14 @@ function Navbar() {
         </ul>
 
         <div className='flex items-center gap-4'>
-          <img onClick={()=> setshowsearch(true)} src={assets.search_icon} className='cursor-pointer h-4'/>
-          
+          {
+            location.includes("/collection")?<img onClick={()=> setshowsearch(true)} src={assets.search_icon} className = "cursor-pointer h-4"/>:""
+          }
           <div className='group relative'>
               <Link to="/login">
                 <img src={assets.profile_icon} className='cursor-pointer h-4'/>
               </Link>
-              <div className="hidden group-hover:block absolute right-0 pt-4">
+              <div className="hidden group-hover:block absolute pt-4">
                   <div className='flex flex-col text-sm gap-2 px-5 py-3 w-36 bg-slate-100 text-gray-500 rounded' >
                     <p className='cursor-pointer hover:text-black'>My Profile</p>
                     <p className='cursor-pointer hover:text-black'>Orders</p>
@@ -47,7 +51,7 @@ function Navbar() {
           </div>
 
           <Link to='/cart' className='relative'>
-            <img src={assets.cart_icon}className='h-4'/>
+            <img src={assets.cart_icon} className='h-4'/>
             <p className='absolute right-[-5px] top-[8px] text-center text-[7px] w-3 leading-3 bg-black text-white aspect-square rounded-full'>{getCartCount()}</p>
           </Link>
 

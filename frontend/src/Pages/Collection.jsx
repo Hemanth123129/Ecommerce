@@ -39,7 +39,7 @@ import ProductItem from '../Components/ProductItem'
 
 
 const Collection = () => {
-  const { showsearch, products, search, setsearch} = useContext(Shopcontext)
+  const { showsearch, products, search} = useContext(Shopcontext)
   
   const [showFilter, setshowFilter] = useState(false)
 
@@ -53,13 +53,14 @@ const Collection = () => {
 
   useEffect(() => {
     applyfilter();
-  }, [category, subcategory, search, setsearch])
+  }, [category, subcategory, search])
 
   useEffect(()=>{
     sortProduct()
   },[sortby])
 
   const applyfilter = () => {
+    console.log("in applyfiter")
     let productcopy = products.slice()
 
     if(showsearch && search){
@@ -165,11 +166,11 @@ const Collection = () => {
       </div>
 
       {/*Right Side */}
-      <div className='flex-1'>
-        <div className='flex justify-between text-base sm:text-2xl mb-4'>
+      <div>
+        <div className='flex justify-between items-center text-base sm:text-2xl mb-4'>
           <Title text1={'ALL'} text2={'COLLECTIONS'} />
           {/* Product Sort */}
-          <select onChange={HandleSortType} className='border-2 border-gray-500 text-sm px-2'>
+          <select onChange={HandleSortType} className='border-2 border-gray-500 text-sm px-2 py-3'>
             <option value="relavent">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High </option>
             <option value="high-low">Sort by: High to Low</option>

@@ -14,7 +14,7 @@ function LatestCollection() {
     },[])
 
   return (
-    <div className='my-10'>
+    <div className='my-5'>
         
         <div className='text-center py-8 text-3xl'>
             <Title text1={'LATEST'} text2={'COLLECTIONS'}/>
@@ -23,7 +23,7 @@ function LatestCollection() {
             </p>
         </div>
         {/* */}
-        <div className='grid mx-auto sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3'>
+        <div className='grid mx-auto sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5'>
                 {latest.map((item,index)=>{ 
                     return <ProductItem key={index} id={item._id} name={item.name} price={item.price} image={item.image}/>
                 })}         
