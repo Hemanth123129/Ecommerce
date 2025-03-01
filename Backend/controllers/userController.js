@@ -31,6 +31,21 @@ const loginuser = async (req,res) =>{
     }
 }
 
+const getallusers = async (req,res) =>{
+    try {
+        const users = await userModel.find({})
+        if(users.length > 0){
+            return res.json({success:true,users})
+        }
+        else{
+            return res.json({success:true,msg:"Users not registered"})
+        }
+    } catch (error) {
+        console.log(error)
+        return res.json({success:false,msg:error.msg})
+    }
+}
+
 const registeruser = async (req,res) =>{
     try {
         const {name,email,password} = req.body;
@@ -66,7 +81,6 @@ const registeruser = async (req,res) =>{
         return res.json({success:false,msg:error.msg})
 
     }
-    // res.json({"msg":"registeapiworking"})
 }
 
 const adminLogin = async (req,res) =>{
@@ -81,4 +95,4 @@ const adminLogin = async (req,res) =>{
     }
 }
 
-export {loginuser,registeruser,adminLogin}
+export {loginuser,registeruser,getallusers,adminLogin}

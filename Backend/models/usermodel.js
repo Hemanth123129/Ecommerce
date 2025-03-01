@@ -12,5 +12,6 @@ const userSchema = new mongoose.Schema({
                      // inbuilt parameter    
 
 const userModel = mongoose.models.user || mongoose.model("user", userSchema)
+// why is this
 
 export default userModel

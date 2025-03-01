@@ -3,16 +3,16 @@ import {addproduct,removeproduct,listproducts,singleproduct} from "../controller
 import upload from "../middleware/multer.js"
 import adminauth from "../middleware/adminauth.js"
 
+
+
 const productRouter = express.Router()
 
-productRouter.post("/add", adminauth,
-                    upload.fields([{name:'image1',maxCount:1},{name:'image2',maxCount:1},
-                                   {name:'image3',maxCount:1},{name:'image4',maxCount:1},
-                                   {name:'image5',maxCount:1}]),
-                    addproduct)
+productRouter.post("/add",upload.fields([{name:'image1',maxCount:1},{name:'image2',maxCount:1},
+                                         {name:'image3',maxCount:1},{name:'image4',maxCount:1},
+                                         {name:'image5',maxCount:1}]),addproduct)
 
-productRouter.post("/remove/:productid",adminauth,removeproduct)
-productRouter.post("/listproducts",adminauth,listproducts)
-productRouter.post("/showproduct/:productid",adminauth,singleproduct)
+productRouter.delete("/remove/:productid",adminauth,removeproduct)
+productRouter.get("/listproducts",adminauth,listproducts)
+productRouter.get("/showproduct/:productid",adminauth,singleproduct)
 
 export default productRouter

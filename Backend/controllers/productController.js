@@ -1,14 +1,10 @@
 import { v2 as cloudinary } from "cloudinary";
 import productmodel from "../models/productmodel.js";
-import validator from "validator"
-import jwt from "jsonwebtoken"
-import bcrypt from "bcrypt"
-
 
 const addproduct = async (req,res) =>{
-  try {
-        const {name,description,price,category,subCategory,sizes,bestseller} = req.body
-
+    try {
+        const {name,description,price,category,SubCategory,sizes,bestseller} = req.body
+        
         const image1 =  req.files.image1 && req.files.image1[0]
         const image2 =  req.files.image2 && req.files.image2[0]
         const image3 =  req.files.image3 && req.files.image3[0]
@@ -27,20 +23,27 @@ const addproduct = async (req,res) =>{
         ) // uploads images to cloudinary and returns list of image urls 
 
         const productData = {
-            name,description,category,
+            name,
+            description,
+            category,
             price:Number(price),
-            subCategory,
+            SubCategory,
             bestseller: bestseller === "true"? true:false,
             sizes:JSON.parse(sizes), // why is this
-            image: imageUrl,
-            date:date.now()
+            images: imageUrl,
+            date: Date.now()
         }
 
         const productdata = new productmodel(productData)
         await productdata.save()
-        res.json({success:true,message:"Product added"})
+        
+        console.log(name,description,price,category,SubCategory,sizes,bestseller)
+        console.log(req.files)
+        console.log(imageUrl)
+        
+        return res.json({success:true,message:"Product added"})
     } 
-     catch (error) {
+    catch(error){
             console.log(error)
             return res.json({success:false,msg:error.msg})
         }
@@ -58,19 +61,32 @@ const listproducts = async (req,res) =>{
 
 const removeproduct = async (req,res) =>{
     try {
-        await productmodel.findByIdAndDelete(req.params.id)
+        const productid = req.params.productid
+        const product = await productmodel.findById( productid )
+
+        if(!product){
+            return res.json({success:false,msg:"Invalid ProductID"})
+        }
+
+        await productmodel.findByIdAndDelete(req.params.productid)
         res.json({success:true,message:"Product removed"})
     } catch (error) {
         console.log(error)
         return res.json({success:false,msg:error.msg})
     }
-    
 }
 
 const singleproduct = async (req,res) =>{
     try {
-        const product = await productmodel.findById(req.params.id)
-        res.json({success:true,product})
+        const productid = req.params.productid
+        const product = await productmodel.findById( productid )
+        if(!product){
+            return res.json({success:false,msg:"Invalid ProductID"})
+        }
+
+        const getproduct = await productmodel.findById(productid)
+        console.log(getproduct)
+        res.json({success:true,getproduct})
     } catch (error) {
         console.log(error)
         return res.json({success:false,msg:error.msg})
